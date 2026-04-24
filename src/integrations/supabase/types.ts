@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      cover_letters: {
+        Row: {
+          company: string | null
+          content: string
+          created_at: string
+          cv_id: string | null
+          focus: string
+          id: string
+          job_ad: string
+          job_title: string | null
+          language: string
+          length: string
+          match_feedback: Json | null
+          match_score: number | null
+          title: string
+          tone: string
+          updated_at: string
+          user_id: string
+          voice_sample: string
+        }
+        Insert: {
+          company?: string | null
+          content?: string
+          created_at?: string
+          cv_id?: string | null
+          focus?: string
+          id?: string
+          job_ad?: string
+          job_title?: string | null
+          language?: string
+          length?: string
+          match_feedback?: Json | null
+          match_score?: number | null
+          title?: string
+          tone?: string
+          updated_at?: string
+          user_id: string
+          voice_sample?: string
+        }
+        Update: {
+          company?: string | null
+          content?: string
+          created_at?: string
+          cv_id?: string | null
+          focus?: string
+          id?: string
+          job_ad?: string
+          job_title?: string | null
+          language?: string
+          length?: string
+          match_feedback?: Json | null
+          match_score?: number | null
+          title?: string
+          tone?: string
+          updated_at?: string
+          user_id?: string
+          voice_sample?: string
+        }
+        Relationships: []
+      }
       cvs: {
         Row: {
           created_at: string
