@@ -22,7 +22,12 @@ export const Navbar = () => {
         <div className="flex items-center gap-3">
           {user ? (
             <>
-              <span className="hidden text-sm text-muted-foreground sm:inline">{user.email}</span>
+              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                <Link to="/dashboard">Mina CV</Link>
+              </Button>
+              <Button asChild size="sm" variant="hero">
+                <Link to="/dashboard">Till editorn</Link>
+              </Button>
               <Button variant="ghost" size="sm" onClick={signOut}>Logga ut</Button>
             </>
           ) : (
