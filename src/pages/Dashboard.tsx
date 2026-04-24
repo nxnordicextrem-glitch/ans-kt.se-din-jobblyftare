@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Plus, FileText, Trash2, Loader2 } from "lucide-react";
+import { Plus, FileText, Trash2, Loader2, Mail } from "lucide-react";
 import { sampleCV } from "@/types/cv";
 
 interface CVRow {
@@ -68,9 +68,14 @@ const Dashboard = () => {
             <h1 className="font-display text-4xl tracking-tight">Mina CV</h1>
             <p className="mt-1 text-muted-foreground">Skapa, redigera och ladda ner dina CV:n.</p>
           </div>
-          <Button variant="hero" size="lg" onClick={createNew}>
-            <Plus className="h-4 w-4" /> Nytt CV
-          </Button>
+          <div className="flex gap-2">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/letters"><Mail className="h-4 w-4" /> Personliga brev</Link>
+            </Button>
+            <Button variant="hero" size="lg" onClick={createNew}>
+              <Plus className="h-4 w-4" /> Nytt CV
+            </Button>
+          </div>
         </div>
 
         {loading ? (
