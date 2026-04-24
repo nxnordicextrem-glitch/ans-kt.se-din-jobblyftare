@@ -25,6 +25,9 @@ export const Navbar = () => {
               <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
                 <Link to="/dashboard">Mina CV</Link>
               </Button>
+              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                <Link to="/letters">Personliga brev</Link>
+              </Button>
               <Button asChild size="sm" variant="hero">
                 <Link to="/dashboard">Till editorn</Link>
               </Button>

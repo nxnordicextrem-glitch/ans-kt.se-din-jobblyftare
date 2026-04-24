@@ -86,7 +86,7 @@ const LetterEditor = () => {
         setVoiceSample(row.voice_sample);
         setCvId(row.cv_id ?? "");
         setContent(row.content);
-        setFeedback(row.match_feedback as Feedback | null);
+        setFeedback((row.match_feedback as unknown as Feedback) ?? null);
       }
       setCvOptions((cvs as CVOption[]) || []);
       setLoading(false);
