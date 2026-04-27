@@ -355,10 +355,18 @@ const LetterEditor = () => {
               )}
             </div>
             {content ? (
-              <Textarea
-                value={content} onChange={(e) => setContent(e.target.value)}
-                className="min-h-[520px] resize-y border-0 bg-transparent p-6 font-serif text-[15px] leading-relaxed focus-visible:ring-0"
-              />
+              unlocked ? (
+                <Textarea
+                  value={content} onChange={(e) => setContent(e.target.value)}
+                  className="min-h-[520px] resize-y border-0 bg-transparent p-6 font-serif text-[15px] leading-relaxed focus-visible:ring-0"
+                />
+              ) : (
+                <LockedPreview watermarkText="Lås upp brev — 29 kr">
+                  <div className="min-h-[520px] whitespace-pre-wrap p-6 font-serif text-[15px] leading-relaxed text-foreground">
+                    {content}
+                  </div>
+                </LockedPreview>
+              )
             ) : (
               <div className="grid min-h-[520px] place-items-center p-10 text-center">
                 <div>
