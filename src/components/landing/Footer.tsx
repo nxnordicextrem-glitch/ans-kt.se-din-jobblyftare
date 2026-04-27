@@ -7,7 +7,7 @@ export const Footer = () => (
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 font-display text-xl font-semibold">
             <FileText className="h-5 w-5 text-primary" />
-            Jobblyftet
+            Ansökt
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             Sveriges smartaste väg till drömjobbet. Byggd för människor — driven av AI.
@@ -26,12 +26,12 @@ export const Footer = () => (
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li><a href="/integritetspolicy" className="hover:text-foreground">Integritetspolicy</a></li>
             <li><a href="/anvandarvillkor" className="hover:text-foreground">Användarvillkor</a></li>
-            <li><a href="mailto:hej@jobblyftet.se" className="hover:text-foreground">Kontakt</a></li>
+            <li><a href="mailto:hej@ansökt.se" className="hover:text-foreground">Kontakt</a></li>
           </ul>
         </div>
       </div>
       <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
-        <p>© {new Date().getFullYear()} Jobblyftet. Alla rättigheter förbehållna.</p>
+        <p>© {new Date().getFullYear()} Ansökt. Alla rättigheter förbehållna.</p>
         <p>Gjord med omsorg i Sverige 🇸🇪</p>
       </div>
     </div>

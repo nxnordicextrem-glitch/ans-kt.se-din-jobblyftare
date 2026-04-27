@@ -11,7 +11,7 @@ export const Navbar = () => {
       <nav className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-display text-xl font-semibold text-foreground">
           <FileText className="h-5 w-5 text-primary" />
-          Jobblyftet
+          Ansökt
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           <a href="#funktioner" className="text-sm text-muted-foreground transition-smooth hover:text-foreground">Funktioner</a>
