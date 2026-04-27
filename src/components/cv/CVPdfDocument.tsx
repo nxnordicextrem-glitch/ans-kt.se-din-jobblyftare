@@ -237,10 +237,9 @@ const LockedOverlay = () => (
       left: 0,
       right: 0,
       bottom: 0,
-      pointerEvents: "none",
     }}
   >
-    {/* Grå "blur"-zon nederst (ca 28%) */}
+    {/* Vit "blur"-zon nederst (~28%) */}
     <View
       style={{
         position: "absolute",
@@ -267,7 +266,7 @@ const LockedOverlay = () => (
         style={{
           fontSize: 36,
           fontFamily: "Helvetica-Bold",
-          color: "#000",
+          color: "#000000",
           opacity: 0.12,
           letterSpacing: 6,
         }}
@@ -287,7 +286,7 @@ const LockedOverlay = () => (
         alignItems: "center",
       }}
     >
-      <Text style={{ fontSize: 11, fontFamily: "Helvetica-Bold", color: "#fff", letterSpacing: 1 }}>
+      <Text style={{ fontSize: 11, fontFamily: "Helvetica-Bold", color: "#ffffff", letterSpacing: 1 }}>
         LÅS UPP HELA DOKUMENTET PÅ JOBBLYFTET — 29 KR
       </Text>
     </View>
@@ -307,13 +306,11 @@ export const CVPdfDocument = ({
 }) => (
   <Document title={data.personal.fullName || "CV"}>
     {template === "modern" ? (
-      <ModernPDF data={data} language={language} />
+      <ModernPDF data={data} language={language} locked={locked} />
     ) : (
-      <SimplePDF data={data} language={language} variant={template} />
-    )}
-    {/* Overlay läggs på sista sidan via fixed View i samma Page — re-renderar hela dokumentet med overlay */}
-    {locked && (
-      <></>
+      <SimplePDF data={data} language={language} variant={template} locked={locked} />
     )}
   </Document>
 );
+
+export { LockedOverlay };
