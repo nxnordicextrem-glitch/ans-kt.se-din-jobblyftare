@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   { name: "Emma L.", role: "Marknadsansvarig", quote: "Fick jobbet jag drömt om på tre veckor. Det personliga brevet kändes faktiskt som mig — inte som en robot." },
-  { name: "Jonas P.", role: "Mjukvaruutvecklare", quote: "Bytte från ett trist Word-CV till Jobblyftet och fick svar från fyra av fem företag. Inte en slump." },
+  { name: "Jonas P.", role: "Mjukvaruutvecklare", quote: "Bytte från ett trist Word-CV till Ansökt och fick svar från fyra av fem företag. Inte en slump." },
   { name: "Sara A.", role: "Sjuksköterska", quote: "Snabbt, snyggt och rakt på sak. Och stödet på svenska gör verkligen skillnad." },
 ];
 

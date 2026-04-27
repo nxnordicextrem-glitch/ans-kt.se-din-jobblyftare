@@ -17,7 +17,7 @@ interface Props {
 export const LockedPreview = ({
   children,
   coverage = 0.28,
-  watermarkText = "Lås upp på Jobblyftet",
+  watermarkText = "Lås upp på Ansökt",
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 

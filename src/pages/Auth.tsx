@@ -103,7 +103,7 @@ const Auth = () => {
       <header className="container py-6">
         <Link to="/" className="inline-flex items-center gap-2 font-display text-xl font-semibold">
           <FileText className="h-5 w-5 text-primary" />
-          Jobblyftet
+          Ansökt
         </Link>
       </header>
       <main className="flex flex-1 items-center justify-center px-4 py-12">

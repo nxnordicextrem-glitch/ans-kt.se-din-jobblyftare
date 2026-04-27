@@ -175,7 +175,7 @@ const LetterEditor = () => {
     // Gratis = trunkerat brev + watermark; betald = ren text
     const out = unlocked
       ? content
-      : `${content.slice(0, Math.floor(content.length * 0.72))}\n\n— — — — — — — — — — — — — — — — — — — — —\n[FÖRHANDSVISNING — Lås upp hela brevet på Jobblyftet för 29 kr]\n`;
+      : `${content.slice(0, Math.floor(content.length * 0.72))}\n\n— — — — — — — — — — — — — — — — — — — — —\n[FÖRHANDSVISNING — Lås upp hela brevet på Ansökt för 29 kr]\n`;
     const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

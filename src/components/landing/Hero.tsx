@@ -39,7 +39,7 @@ export const Hero = () => {
           <div className="absolute -inset-4 rounded-3xl bg-gradient-primary opacity-10 blur-3xl" />
           <img
             src={heroImage}
-            alt="Professionellt CV skapat med Jobblyftet"
+            alt="Professionellt CV skapat med Ansökt"
             width={1280}
             height={1280}
             className="relative w-full max-w-md rounded-2xl shadow-elegant"
