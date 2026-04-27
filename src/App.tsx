@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Editor from "./pages/Editor.tsx";
 import CoverLetters from "./pages/CoverLetters.tsx";
 import LetterEditor from "./pages/LetterEditor.tsx";
+import Unlocked from "./pages/Unlocked.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/editor/:id" element={<ProtectedRoute><Editor /></ProtectedRoute>} />
             <Route path="/letters" element={<ProtectedRoute><CoverLetters /></ProtectedRoute>} />
             <Route path="/letter/:id" element={<ProtectedRoute><LetterEditor /></ProtectedRoute>} />
+            <Route path="/unlocked" element={<ProtectedRoute><Unlocked /></ProtectedRoute>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

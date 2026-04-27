@@ -8,6 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { ArrowLeft, Download, Loader2, Save, Sparkles, Mail, Wand2 } from "lucide-react";
+import { LockedPreview } from "@/components/paywall/LockedPreview";
+import { UnlockButton } from "@/components/paywall/UnlockButton";
+import { isUnlocked } from "@/lib/paywall";
 
 type Tone = "professionell" | "personlig" | "självsäker" | "kreativ";
 type Focus = "erfarenhet" | "driv" | "resultat" | "personlighet";
@@ -166,11 +169,17 @@ const LetterEditor = () => {
     } finally { setGenerating(false); }
   };
 
+  const unlocked = isUnlocked("letter", id ?? null);
+
   const exportTxt = () => {
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    // Gratis = trunkerat brev + watermark; betald = ren text
+    const out = unlocked
+      ? content
+      : `${content.slice(0, Math.floor(content.length * 0.72))}\n\n— — — — — — — — — — — — — — — — — — — — —\n[FÖRHANDSVISNING — Lås upp hela brevet på Jobblyftet för 29 kr]\n`;
+    const blob = new Blob([out], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = `${(title || "brev").replace(/[^a-z0-9-_ ]/gi, "")}.txt`;
+    a.href = url; a.download = `${(title || "brev").replace(/[^a-z0-9-_ ]/gi, "")}${unlocked ? "" : "-preview"}.txt`;
     a.click(); URL.revokeObjectURL(url);
   };
 
@@ -205,9 +214,13 @@ const LetterEditor = () => {
             <Button variant="outline" size="sm" onClick={save} disabled={saving}>
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Spara
             </Button>
-            <Button variant="hero" size="sm" onClick={exportTxt} disabled={!content}>
-              <Download className="h-4 w-4" /> Ladda ner
-            </Button>
+            {unlocked ? (
+              <Button variant="hero" size="sm" onClick={exportTxt} disabled={!content}>
+                <Download className="h-4 w-4" /> Ladda ner
+              </Button>
+            ) : (
+              <UnlockButton type="letter" id={id ?? null} unlocked={false} onDownload={exportTxt} />
+            )}
           </div>
         </div>
       </header>
@@ -342,10 +355,18 @@ const LetterEditor = () => {
               )}
             </div>
             {content ? (
-              <Textarea
-                value={content} onChange={(e) => setContent(e.target.value)}
-                className="min-h-[520px] resize-y border-0 bg-transparent p-6 font-serif text-[15px] leading-relaxed focus-visible:ring-0"
-              />
+              unlocked ? (
+                <Textarea
+                  value={content} onChange={(e) => setContent(e.target.value)}
+                  className="min-h-[520px] resize-y border-0 bg-transparent p-6 font-serif text-[15px] leading-relaxed focus-visible:ring-0"
+                />
+              ) : (
+                <LockedPreview watermarkText="Lås upp brev — 29 kr">
+                  <div className="min-h-[520px] whitespace-pre-wrap p-6 font-serif text-[15px] leading-relaxed text-foreground">
+                    {content}
+                  </div>
+                </LockedPreview>
+              )
             ) : (
               <div className="grid min-h-[520px] place-items-center p-10 text-center">
                 <div>

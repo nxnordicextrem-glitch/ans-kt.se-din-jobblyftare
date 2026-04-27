@@ -32,10 +32,11 @@ const Bullets = ({ items }: { items: string[] }) => (
 );
 
 /* ========== MODERN ========== */
-const ModernPDF = ({ data, language: lang }: { data: CVData; language: Language }) => {
+const ModernPDF = ({ data, language: lang, locked }: { data: CVData; language: Language; locked?: boolean }) => {
   const accent = data.accentColor || "#1a4d3e";
   return (
     <Page size="A4" style={base.page}>
+      {locked && <LockedOverlay />}
       <View style={{ flexDirection: "row", flex: 1 }}>
         <View style={{ width: 170, backgroundColor: accent, padding: 22, color: "#fff" }}>
           <Text style={{ fontSize: 18, fontFamily: "Helvetica-Bold", color: "#fff" }}>{data.personal.fullName || " "}</Text>
@@ -125,10 +126,12 @@ const SimplePDF = ({
   data,
   language: lang,
   variant,
+  locked,
 }: {
   data: CVData;
   language: Language;
   variant: "klassisk" | "minimal" | "executive" | "kreativ";
+  locked?: boolean;
 }) => {
   const accent = data.accentColor || "#1a4d3e";
   const heading = variant === "klassisk"
@@ -141,6 +144,7 @@ const SimplePDF = ({
 
   return (
     <Page size="A4" style={[base.page, { padding: 36 }]}>
+      {locked && <LockedOverlay />}
       {variant === "kreativ" ? (
         <View style={{ backgroundColor: accent, padding: 22, borderRadius: 8 }}>
           <Text style={{ fontSize: 9, color: "#fff", opacity: 0.85, letterSpacing: 1.6 }}>{(data.personal.title || "").toUpperCase()}</Text>
@@ -227,20 +231,90 @@ const SimplePDF = ({
   );
 };
 
+/* ========== LOCKED OVERLAY (gratis-version) ========== */
+const LockedOverlay = () => (
+  <View
+    fixed
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    }}
+  >
+    {/* Vit "blur"-zon nederst (~28%) */}
+    <View
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: "28%",
+        backgroundColor: "#ffffff",
+        opacity: 0.82,
+      }}
+    />
+    {/* Diagonal vattenstämpel */}
+    <View
+      style={{
+        position: "absolute",
+        top: "42%",
+        left: 0,
+        right: 0,
+        alignItems: "center",
+        transform: "rotate(-22deg)",
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 36,
+          fontFamily: "Helvetica-Bold",
+          color: "#000000",
+          opacity: 0.12,
+          letterSpacing: 6,
+        }}
+      >
+        LÅS UPP PÅ JOBBLYFTET
+      </Text>
+    </View>
+    {/* Banner längst ner */}
+    <View
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#1a4d3e",
+        paddingVertical: 10,
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ fontSize: 11, fontFamily: "Helvetica-Bold", color: "#ffffff", letterSpacing: 1 }}>
+        LÅS UPP HELA DOKUMENTET PÅ JOBBLYFTET — 29 KR
+      </Text>
+    </View>
+  </View>
+);
+
 export const CVPdfDocument = ({
   data,
   template,
   language,
+  locked = false,
 }: {
   data: CVData;
   template: CVTemplate;
   language: Language;
+  locked?: boolean;
 }) => (
   <Document title={data.personal.fullName || "CV"}>
     {template === "modern" ? (
-      <ModernPDF data={data} language={language} />
+      <ModernPDF data={data} language={language} locked={locked} />
     ) : (
-      <SimplePDF data={data} language={language} variant={template} />
+      <SimplePDF data={data} language={language} variant={template} locked={locked} />
     )}
   </Document>
 );
+
+export { LockedOverlay };
