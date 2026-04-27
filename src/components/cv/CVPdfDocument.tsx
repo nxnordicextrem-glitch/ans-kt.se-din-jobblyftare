@@ -32,10 +32,11 @@ const Bullets = ({ items }: { items: string[] }) => (
 );
 
 /* ========== MODERN ========== */
-const ModernPDF = ({ data, language: lang }: { data: CVData; language: Language }) => {
+const ModernPDF = ({ data, language: lang, locked }: { data: CVData; language: Language; locked?: boolean }) => {
   const accent = data.accentColor || "#1a4d3e";
   return (
     <Page size="A4" style={base.page}>
+      {locked && <LockedOverlay />}
       <View style={{ flexDirection: "row", flex: 1 }}>
         <View style={{ width: 170, backgroundColor: accent, padding: 22, color: "#fff" }}>
           <Text style={{ fontSize: 18, fontFamily: "Helvetica-Bold", color: "#fff" }}>{data.personal.fullName || " "}</Text>
@@ -125,10 +126,12 @@ const SimplePDF = ({
   data,
   language: lang,
   variant,
+  locked,
 }: {
   data: CVData;
   language: Language;
   variant: "klassisk" | "minimal" | "executive" | "kreativ";
+  locked?: boolean;
 }) => {
   const accent = data.accentColor || "#1a4d3e";
   const heading = variant === "klassisk"
@@ -141,6 +144,7 @@ const SimplePDF = ({
 
   return (
     <Page size="A4" style={[base.page, { padding: 36 }]}>
+      {locked && <LockedOverlay />}
       {variant === "kreativ" ? (
         <View style={{ backgroundColor: accent, padding: 22, borderRadius: 8 }}>
           <Text style={{ fontSize: 9, color: "#fff", opacity: 0.85, letterSpacing: 1.6 }}>{(data.personal.title || "").toUpperCase()}</Text>
