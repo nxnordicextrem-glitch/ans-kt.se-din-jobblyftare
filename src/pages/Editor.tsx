@@ -11,6 +11,9 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { ArrowLeft, Download, Loader2, Save, FileText } from "lucide-react";
 import { pdf } from "@react-pdf/renderer";
+import { LockedPreview } from "@/components/paywall/LockedPreview";
+import { UnlockButton } from "@/components/paywall/UnlockButton";
+import { isUnlocked } from "@/lib/paywall";
 
 const TEMPLATES: CVTemplate[] = ["modern", "klassisk", "minimal", "kreativ", "executive"];
 
@@ -87,14 +90,18 @@ const Editor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, title, template, language, user]);
 
+  const unlocked = isUnlocked("cv", cvId);
+
   const exportPDF = async () => {
     setExporting(true);
     try {
-      const blob = await pdf(<CVPdfDocument data={data} template={template} language={language} />).toBlob();
+      const blob = await pdf(
+        <CVPdfDocument data={data} template={template} language={language} locked={!unlocked} />,
+      ).toBlob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${(title || "CV").replace(/[^a-z0-9-_ ]/gi, "")}.pdf`;
+      a.download = `${(title || "CV").replace(/[^a-z0-9-_ ]/gi, "")}${unlocked ? "" : "-preview"}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e: any) {
@@ -143,10 +150,20 @@ const Editor = () => {
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               Spara
             </Button>
-            <Button variant="hero" size="sm" onClick={exportPDF} disabled={exporting}>
-              {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-              Ladda ner PDF
-            </Button>
+            {unlocked ? (
+              <Button variant="hero" size="sm" onClick={exportPDF} disabled={exporting}>
+                {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                Ladda ner PDF
+              </Button>
+            ) : (
+              <>
+                <Button variant="outline" size="sm" onClick={exportPDF} disabled={exporting}>
+                  {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                  Förhandsvisning
+                </Button>
+                <UnlockButton type="cv" id={cvId} unlocked={unlocked} onDownload={exportPDF} downloading={exporting} />
+              </>
+            )}
           </div>
         </div>
       </header>
