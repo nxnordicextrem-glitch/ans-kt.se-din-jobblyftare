@@ -227,20 +227,93 @@ const SimplePDF = ({
   );
 };
 
+/* ========== LOCKED OVERLAY (gratis-version) ========== */
+const LockedOverlay = () => (
+  <View
+    fixed
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      pointerEvents: "none",
+    }}
+  >
+    {/* Grå "blur"-zon nederst (ca 28%) */}
+    <View
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: "28%",
+        backgroundColor: "#ffffff",
+        opacity: 0.82,
+      }}
+    />
+    {/* Diagonal vattenstämpel */}
+    <View
+      style={{
+        position: "absolute",
+        top: "42%",
+        left: 0,
+        right: 0,
+        alignItems: "center",
+        transform: "rotate(-22deg)",
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 36,
+          fontFamily: "Helvetica-Bold",
+          color: "#000",
+          opacity: 0.12,
+          letterSpacing: 6,
+        }}
+      >
+        LÅS UPP PÅ JOBBLYFTET
+      </Text>
+    </View>
+    {/* Banner längst ner */}
+    <View
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#1a4d3e",
+        paddingVertical: 10,
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ fontSize: 11, fontFamily: "Helvetica-Bold", color: "#fff", letterSpacing: 1 }}>
+        LÅS UPP HELA DOKUMENTET PÅ JOBBLYFTET — 29 KR
+      </Text>
+    </View>
+  </View>
+);
+
 export const CVPdfDocument = ({
   data,
   template,
   language,
+  locked = false,
 }: {
   data: CVData;
   template: CVTemplate;
   language: Language;
+  locked?: boolean;
 }) => (
   <Document title={data.personal.fullName || "CV"}>
     {template === "modern" ? (
       <ModernPDF data={data} language={language} />
     ) : (
       <SimplePDF data={data} language={language} variant={template} />
+    )}
+    {/* Overlay läggs på sista sidan via fixed View i samma Page — re-renderar hela dokumentet med overlay */}
+    {locked && (
+      <></>
     )}
   </Document>
 );
