@@ -204,20 +204,23 @@ const Editor = () => {
               <span>A4</span>
             </div>
             <div className="overflow-hidden rounded-xl bg-white shadow-elegant">
-              {/* A4 ratio container — width 100%, locked aspect */}
-              <div
-                className="origin-top-left"
-                style={{
-                  width: `${100 / previewScale}%`,
-                  transform: `scale(${previewScale})`,
-                  transformOrigin: "top left",
-                }}
-              >
-                <div style={{ width: "210mm", minHeight: "297mm" }}>
-                  <CVTemplateRenderer data={data} template={template} language={language} />
-                </div>
-              </div>
-              {/* Spacer to compensate for transform scale on parent height */}
+              {(() => {
+                const inner = (
+                  <div
+                    className="origin-top-left"
+                    style={{
+                      width: `${100 / previewScale}%`,
+                      transform: `scale(${previewScale})`,
+                      transformOrigin: "top left",
+                    }}
+                  >
+                    <div style={{ width: "210mm", minHeight: "297mm" }}>
+                      <CVTemplateRenderer data={data} template={template} language={language} />
+                    </div>
+                  </div>
+                );
+                return unlocked ? inner : <LockedPreview>{inner}</LockedPreview>;
+              })()}
               <div style={{ paddingTop: `${(297 / 210) * previewScale * 100 - 100}%` }} aria-hidden />
             </div>
           </div>
