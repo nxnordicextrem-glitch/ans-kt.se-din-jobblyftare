@@ -31,6 +31,10 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_SUPABASE_URL: https://oxibxbxhrlqujlcyjgew.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94aWJ4YnhocmxxdWpsY3lqZ2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMjI3NzcsImV4cCI6MjA5MjU5ODc3N30.Ve2zrz8ku2zUXIuPTPUg9fpXRx299S19TA9RM01nyhs
+          VITE_SUPABASE_PROJECT_ID: oxibxbxhrlqujlcyjgew
         run: npm run build
 
       - name: Ensure CNAME in dist
