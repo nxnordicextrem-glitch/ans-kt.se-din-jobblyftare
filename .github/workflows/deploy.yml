@@ -44,6 +44,12 @@ jobs:
       - name: Add SPA 404 fallback
         run: cp dist/index.html dist/404.html
 
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -d dist/assets
+          ! grep -q '/src/main.tsx' dist/index.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
