@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -60,6 +61,7 @@ const Auth = () => {
           },
         });
         if (error) throw error;
+        trackEvent("signup", { metadata: { method: "email" } });
         toast.success("Konto skapat! Du är inloggad.");
         navigate("/");
       } else {
@@ -73,6 +75,7 @@ const Auth = () => {
           password: parsed.data.password,
         });
         if (error) throw error;
+        trackEvent("login", { metadata: { method: "email" } });
         toast.success("Välkommen tillbaka!");
         navigate("/");
       }
