@@ -9,6 +9,7 @@ import { CVData, CVTemplate, Language, emptyCV } from "@/types/cv";
 import { CVPdfDocument } from "@/components/cv/CVPdfDocument";
 import { pdf } from "@react-pdf/renderer";
 import { consumePendingUnlock, isUnlocked, markUnlocked } from "@/lib/paywall";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * Snabb pay-per-download landningssida.
@@ -103,6 +104,7 @@ const Unlocked = () => {
       a.download = `${(doc.title || "CV").replace(/[^a-z0-9-_ ]/gi, "")}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
+      trackEvent("download", { metadata: { type: "cv", id } });
     } catch (e: any) {
       toast.error("Kunde inte skapa PDF: " + (e.message || ""));
     } finally {
@@ -119,6 +121,7 @@ const Unlocked = () => {
     a.download = `${(doc.letter.title || "brev").replace(/[^a-z0-9-_ ]/gi, "")}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+    trackEvent("download", { metadata: { type: "letter", id } });
   };
 
   if (loading) {
