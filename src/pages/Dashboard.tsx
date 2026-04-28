@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Plus, FileText, Trash2, Loader2, Mail } from "lucide-react";
 import { sampleCV } from "@/types/cv";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { AdminPanel } from "@/components/admin/AdminPanel";
 
 interface CVRow {
   id: string;
@@ -19,6 +21,7 @@ interface CVRow {
 const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { isAdmin } = useIsAdmin();
   const [cvs, setCvs] = useState<CVRow[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -63,6 +66,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container py-12">
+        {isAdmin && <AdminPanel />}
         <div className="flex items-end justify-between gap-4">
           <div>
             <h1 className="font-display text-4xl tracking-tight">Mina CV</h1>
