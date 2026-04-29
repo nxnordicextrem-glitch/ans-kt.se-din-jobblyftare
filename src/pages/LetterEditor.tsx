@@ -347,7 +347,7 @@ const LetterEditor = () => {
           <section className="rounded-2xl border border-border bg-white shadow-elegant">
             <div className="flex items-center justify-between border-b border-border px-5 py-3">
               <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Brev</div>
-              {content && (
+              {content && unlocked && (
                 <button
                   onClick={() => { navigator.clipboard.writeText(content); toast.success("Kopierat"); }}
                   className="text-xs text-primary hover:underline"
