@@ -91,7 +91,8 @@ const Editor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, title, template, language, user]);
 
-  const unlocked = isUnlocked("cv", cvId);
+  const { isAdmin } = useIsAdmin();
+  const unlocked = isAdmin || isUnlocked("cv", cvId);
 
   const exportPDF = async () => {
     setExporting(true);
