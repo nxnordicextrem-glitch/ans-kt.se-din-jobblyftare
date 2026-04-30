@@ -370,14 +370,19 @@ const LetterEditor = () => {
                 </LockedPreview>
               )
             ) : (
-              <div className="grid min-h-[520px] place-items-center p-10 text-center">
-                <div>
-                  <Wand2 className="mx-auto h-10 w-10 text-muted-foreground" />
-                  <h3 className="mt-3 font-display text-xl">Inget brev än</h3>
-                  <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                    Klistra in jobbannonsen, välj ton & fokus, och klicka <em>Generera mitt brev</em>. Det tar 5–15 sekunder.
-                  </p>
+              <div className="space-y-3 p-5">
+                <div className="flex items-start gap-3 rounded-lg border border-dashed border-border bg-muted/30 p-4">
+                  <Wand2 className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
+                  <div className="text-sm text-muted-foreground">
+                    Skriv ditt brev själv nedan, eller klicka <em>Generera mitt brev</em> för att låta AI:n göra ett utkast åt dig.
+                  </div>
                 </div>
+                <Textarea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder={"Hej,\n\nJag söker tjänsten som..."}
+                  className="min-h-[460px] resize-y border-0 bg-transparent p-1 font-serif text-[15px] leading-relaxed focus-visible:ring-0"
+                />
               </div>
             )}
           </section>
