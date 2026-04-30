@@ -170,7 +170,8 @@ const LetterEditor = () => {
     } finally { setGenerating(false); }
   };
 
-  const unlocked = isUnlocked("letter", id ?? null);
+  const { isAdmin } = useIsAdmin();
+  const unlocked = isAdmin || isUnlocked("letter", id ?? null);
 
   const exportTxt = () => {
     // Gratis = trunkerat brev + watermark; betald = ren text
