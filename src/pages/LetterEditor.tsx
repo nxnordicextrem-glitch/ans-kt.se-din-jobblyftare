@@ -11,6 +11,7 @@ import { ArrowLeft, Download, Loader2, Save, Sparkles, Mail, Wand2 } from "lucid
 import { LockedPreview } from "@/components/paywall/LockedPreview";
 import { UnlockButton } from "@/components/paywall/UnlockButton";
 import { isUnlocked } from "@/lib/paywall";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 type Tone = "professionell" | "personlig" | "självsäker" | "kreativ";
 type Focus = "erfarenhet" | "driv" | "resultat" | "personlighet";
