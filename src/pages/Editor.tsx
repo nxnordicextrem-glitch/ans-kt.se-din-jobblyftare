@@ -14,6 +14,7 @@ import { pdf } from "@react-pdf/renderer";
 import { LockedPreview } from "@/components/paywall/LockedPreview";
 import { UnlockButton } from "@/components/paywall/UnlockButton";
 import { isUnlocked } from "@/lib/paywall";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const TEMPLATES: CVTemplate[] = ["modern", "klassisk", "minimal", "kreativ", "executive"];
 
