@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Lock, Unlock, Loader2 } from "lucide-react";
 import { startCheckout, UNLOCK_PRICE_SEK } from "@/lib/paywall";
 import { useState } from "react";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface Props {
   type: "cv" | "letter";
@@ -13,8 +14,9 @@ interface Props {
 
 export const UnlockButton = ({ type, id, unlocked, onDownload, downloading }: Props) => {
   const [loading, setLoading] = useState(false);
+  const { isAdmin } = useIsAdmin();
 
-  if (unlocked) {
+  if (unlocked || isAdmin) {
     return (
       <Button variant="hero" size="sm" onClick={onDownload} disabled={downloading}>
         {downloading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Unlock className="h-4 w-4" />}
